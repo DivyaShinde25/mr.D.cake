@@ -1,0 +1,9 @@
+@echo off
+echo Starting Mr D Cakes Website...
+echo.
+echo Opening website in browser...
+start http://localhost:3000
+echo.
+echo Starting simple server (no MongoDB required)...
+node simple-server.js
+pause

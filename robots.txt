@@ -1,0 +1,12 @@
+# Robots.txt for Mr D Cakes Bakery
+User-agent: *
+Allow: /
+
+# Disallow admin panel from search engines
+Disallow: /admin.html
+
+# Sitemap location (add when created)
+# Sitemap: https://yourdomain.com/sitemap.xml
+
+# Crawl-delay (optional - prevents aggressive crawling)
+Crawl-delay: 1

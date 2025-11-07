@@ -1,0 +1,31 @@
+.delivery-schedule {
+    margin: 1rem 0;
+}
+
+.delivery-schedule label {
+    display: block;
+    margin: 0.5rem 0 0.2rem 0;
+    font-weight: bold;
+    color: var(--black);
+}
+
+.delivery-schedule input[type="date"],
+.delivery-schedule select {
+    width: 100%;
+    padding: 0.8rem;
+    margin-bottom: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+}
+
+.delivery-schedule input[type="date"]:focus,
+.delivery-schedule select:focus {
+    outline: none;
+    border-color: var(--main-color);
+}
+
+.cart-items-container {
+    overflow-y: auto;
+    max-height: calc(100vh - 9.5rem);
+}

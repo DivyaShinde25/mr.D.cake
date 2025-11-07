@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/0b03511168.js" crossorigin="anonymous"></script>
+    <title>Favorites - Mr D Cakes</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <a href="index.html" class="logo"><img src="images/logo.png" alt="Mr D Cakes Logo"></a>
+        <nav class="navbar">
+            <a href="index.html#home">Home</a>
+            <a href="index.html#cakes">Cakes</a>
+            <a href="favorites.html">Favorites</a>
+            <a href="index.html#about">About</a>
+            <a href="index.html#review">Review</a>
+            <a href="index.html#location">Location</a>
+        </nav>
+    </header>
+
+    <section class="cakes favorites" style="margin-top: 16vh;">
+        <h3 class="title">your <span>favorites</span></h3>
+        <div class="wrapper" id="favorites-wrapper">
+            <div class="no-favorites">
+                <p>No favorite items yet. Go back to <a href="index.html#cakes">Cakes</a> and click the heart icon on any item to add it to your favorites!</p>
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+    <script>
+        // Initialize favorites page
+        document.addEventListener('DOMContentLoaded', function() {
+            updateFavoritesDisplay();
+        });
+    </script>
+</body>
+</html>

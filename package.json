@@ -1,0 +1,17 @@
+{
+  "name": "mr-d-cakes-website",
+  "version": "1.0.0",
+  "description": "Mr D Cakes bakery website",
+  "main": "mongodb-server.js",
+  "scripts": {
+    "start": "node mongodb-server.js",
+    "dev": "node mongodb-server.js",
+    "simple": "node server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^4.18.2",
+    "mongoose": "^7.8.7"
+  }
+}

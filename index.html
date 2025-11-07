@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Mr D Cakes - Premium bakery offering fresh cakes and baked goods. Order online for delivery or dine-in.">
+    <meta name="keywords" content="bakery, cakes, fresh bread, online ordering, delivery">
+    <meta name="author" content="Mr D Cakes">
+    <meta property="og:title" content="Mr D Cakes - Premium Bakery">
+    <meta property="og:description" content="Fresh cakes and baked goods. Order online now!">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Mr D Cakes - Premium Bakery">
+    <meta name="twitter:description" content="Fresh cakes and baked goods. Order online now!">
+    <meta name="robots" content="index, follow">
+    <meta name="googlebot" content="index, follow">
+    <link rel="canonical" href="https://yourdomain.com/">
+    <meta name="theme-color" content="#d4a574">
+    <link rel="icon" type="image/png" href="images/logo.png">
+    <link rel="apple-touch-icon" href="images/logo.png">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://kit.fontawesome.com https://ka-f.fontawesome.com https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://ka-f.fontawesome.com; img-src 'self' data: https:; connect-src 'self' https: https://ka-f.fontawesome.com; font-src 'self' https://kit.fontawesome.com https://ka-f.fontawesome.com https://cdnjs.cloudflare.com; object-src 'none'; frame-src 'self' https://www.google.com;">
+    <script src="https://kit.fontawesome.com/0b03511168.js" crossorigin="anonymous"></script>
+    <title>Mr D Cakes - Premium Bakery | Fresh Cakes</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="delivery-schedule.css">
+    <link rel="stylesheet" href="receipt-styles.css">
+    <link rel="stylesheet" href="tracking-styles.css">
+    <script src="config.js"></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Bakery",
+      "name": "Mr D Cakes",
+      "description": "Premium bakery offering fresh cakes and baked goods",
+      "servesCuisine": "Bakery",
+      "priceRange": "₹350-₹1789",
+      "paymentAccepted": "Cash"
+    }
+    </script>
+</head>
+<body>
+    <div id="loading-spinner" class="loading-spinner">
+        <div class="spinner"></div>
+        <p>Loading...</p>
+    </div>
+    
+    <div id="error-toast" class="error-toast">
+        <span id="error-message"></span>
+        <button onclick="hideError()">&times;</button>
+    </div>
+    
+    <div id="success-toast" class="success-toast">
+        <span id="success-message"></span>
+        <button onclick="hideSuccess()">&times;</button>
+    </div>
+    <header class="header">
+        <a href="" class="logo"><img src="images/logo.png" alt="Mr D Cakes Logo"></a>
+        <nav class="navbar">
+            <a href="#home">Home</a>
+            <a href="#cakes">Cakes</a>
+            <a href="favorites.html">Favorites</a>
+            <a href="#about">about</a>
+            <a href="#review">review</a>
+            <a href="#location">location</a>
+        </nav>
+        <div class="icons">
+            <div class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
+            <div class="cart-icon"><i class="fa-solid fa-cart-arrow-down"></i></div>
+            <div class="receipt-icon"><i class="fa-solid fa-receipt"></i></div>
+            <div class="tracking-icon"><i class="fa-solid fa-truck"></i></div>
+            <div class="admin-icon"><i class="fa-solid fa-cog"></i></div>
+            <div class="login-icon"><i class="fa-solid fa-user"></i></div>
+            <div class="menu-icon"><i class="fa-solid fa-bars"></i></div>
+        </div>
+
+        <div class="search-form">
+            <input type="search" name="search" id="search-box" placeholder="search here...">
+            <label for="search-box" class="fa-solid fa-magnifying-glass"></label>
+        </div>
+
+        <div class="cart-items-container">
+            <div class="empty-cart-message" style="text-align: center; padding: 2rem; color: #666;">
+                <i class="fa-solid fa-shopping-cart" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;"></i>
+                <p style="font-size: 1.2rem; margin: 0;">Your cart is empty</p>
+                <p style="font-size: 0.9rem; margin: 0.5rem 0 0 0;">Add some delicious items to get started!</p>
+            </div>
+            <div class="cart-content"></div>
+            <div class="cart-total">Total: ₹<span id="cart-total">0</span></div>
+            
+            <div id="delivery-form" class="order-form">
+                <h4>Delivery Details</h4>
+                <input type="text" id="customer-name" placeholder="Full Name" required>
+                <input type="tel" id="phone-number" placeholder="Phone Number" required>
+                <textarea id="address" placeholder="Delivery Address" required></textarea>
+                <div class="delivery-schedule">
+                    <label for="delivery-date">Delivery Date:</label>
+                    <input type="date" id="delivery-date" required min="">
+                    <label for="delivery-time">Delivery Time:</label>
+                    <select id="delivery-time" required>
+                        <option value="">Select Time</option>
+                        <option value="09:00">9:00 AM</option>
+                        <option value="10:00">10:00 AM</option>
+                        <option value="11:00">11:00 AM</option>
+                        <option value="12:00">12:00 PM</option>
+                        <option value="13:00">1:00 PM</option>
+                        <option value="14:00">2:00 PM</option>
+                        <option value="15:00">3:00 PM</option>
+                        <option value="16:00">4:00 PM</option>
+                        <option value="17:00">5:00 PM</option>
+                        <option value="18:00">6:00 PM</option>
+                        <option value="19:00">7:00 PM</option>
+                        <option value="20:00">8:00 PM</option>
+                    </select>
+                </div>
+                <textarea id="customizations" placeholder="Special Instructions (Optional)"></textarea>
+                <button class="btn" onclick="placeOrder()">Place Order</button>
+            </div>
+        </div>
+
+        <div class="receipt-container">
+            <div class="receipt-header">
+                <h3>Order Receipt</h3>
+                <span class="close-receipt">&times;</span>
+            </div>
+            <div class="receipt-content" id="receipt-content">
+                <p>No orders yet</p>
+            </div>
+        </div>
+
+        <div class="auth-modal" id="auth-modal">
+            <div class="auth-content">
+                <span class="close-auth">&times;</span>
+                <div class="auth-tabs">
+                    <button class="tab-btn active" onclick="showLogin()">Login</button>
+                    <button class="tab-btn" onclick="showSignup()">Sign Up</button>
+                </div>
+                
+                <div id="login-form" class="auth-form">
+                    <h3>Login</h3>
+                    <input type="email" id="login-email" placeholder="Email" required>
+                    <input type="password" id="login-password" placeholder="Password" required>
+                    <button class="btn" onclick="login()">Login</button>
+                </div>
+                
+                <div id="signup-form" class="auth-form" style="display:none;">
+                    <h3>Sign Up</h3>
+                    <input type="text" id="signup-name" placeholder="Full Name" required>
+                    <input type="email" id="signup-email" placeholder="Email" required>
+                    <input type="password" id="signup-password" placeholder="Password" required>
+                    <button class="btn" onclick="signup()">Sign Up</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="tracking-container">
+            <div class="tracking-header">
+                <h3>Order Tracking</h3>
+                <span class="close-tracking">&times;</span>
+            </div>
+            <div class="tracking-content" id="tracking-content">
+                <p>No active orders to track</p>
+            </div>
+        </div>
+
+        
+    </header>
+    <section class="home" id="home">
+        <div class="hero">
+            <h3>making sweet things happen</h3>
+            <p>From freshly baked cakes to delightful pastries, we make sweet things happen every day.
+                 Simple, warm, and made with love — that’s what our kitchen is all about.
+
+            </p>
+        </div>
+    </section>
+    <!-- home section -->
+    <section class="cakes" id="cakes">
+        <h3 class="title">available <span>cakes</span></h3>
+        <div class="wrapper">
+            <!-- item one -->
+            <div class="cake-card">
+                <button type="button" class="cake-favorite toggle-favorite">
+                <i class="fa-solid fa-heart"></i>
+                </button>
+                <img src="images/Cakes/cake1.jpg" alt="Rose Gulkand Cake" style="width:100%;height:200px;object-fit:cover;" onerror="this.style.display='none'">
+                <h3>rose gulkand Cake</h3>
+                <h3>1/2kg</h3>
+                <div class="price">₹350/-</div>
+                <button class="btn add-to-cart">add to cart</button>
+            </div>
+                        <!-- item two -->
+            <div class="cake-card">
+                <button type="button" class="cake-favorite toggle-favorite">
+                <i class="fa-solid fa-heart"></i>
+                </button>
+                <img src="images/Cakes/cake2.jpg" alt="Cake" style="width:100%;height:200px;object-fit:contain;object-position:center top;" onerror="this.style.display='none'">
+                <h3>Special Cake</h3>
+                <h3>1/2kg</h3>
+                <div class="price">₹350/-</div>
+                <button class="btn add-to-cart">add to cart</button>
+            </div>
+            <!-- item three -->
+            <div class="cake-card">
+                <button type="button" class="cake-favorite toggle-favorite">
+                <i class="fa-solid fa-heart"></i>
+                </button>
+                <img src="images/Cakes/cake3.jpg" alt="Red Velvet Cake" style="width:100%;height:200px;object-fit:contain;object-position:center top;" onerror="this.style.display='none'">
+                <h3>Red Velvet cake</h3>
+                <h3>1/2kg</h3>
+                <div class="price">₹400/- <span>500</span></div>
+                <button class="btn add-to-cart">add to cart</button>
+            </div>
+            <!-- item four -->
+            <div class="cake-card">
+                <button type="button" class="cake-favorite toggle-favorite">
+                <i class="fa-solid fa-heart"></i>
+                </button>
+                <img src="images/Cakes/cake4.jpg" alt="Rich Chocolate Cake" style="width:100%;height:200px;object-fit:contain;object-position:center top;" onerror="this.style.display='none'">
+                <h3>Rich Chocolate cake</h3>
+                <h3>1/2kg</h3>
+                <div class="price">₹300/-</div>
+                <button class="btn add-to-cart">add to cart</button>
+            </div>
+            <!-- item five -->
+            <div class="cake-card">
+                <button type="button" class="cake-favorite toggle-favorite">
+                <i class="fa-solid fa-heart"></i>
+                </button>
+                <img src="images/Cakes/cake5.jpg" alt="Butterscotch Cake" style="width:100%;height:200px;object-fit:cover;" onerror="this.style.display='none'">
+                <h3>Butterscotch Cake</h3>
+                <h3>1/2kg</h3>
+                <div class="price">₹300/-</div>
+                <button class="btn add-to-cart">add to cart</button>
+            </div>
+            <!-- item six -->
+            <div class="cake-card">
+                <button type="button" class="cake-favorite toggle-favorite">
+                <i class="fa-solid fa-heart"></i>
+                </button>
+                <img src="images/Cakes/cake6.jpg" alt="Strawberry Cake" style="width:100%;height:200px;object-fit:cover;object-position:center 30%;" onerror="this.style.display='none'">
+                <h3>Strawberry Cake</h3>
+                <h3>1/2kg</h3>
+                <div class="price">₹300/-</div>
+                <button class="btn add-to-cart">add to cart</button>
+            </div>
+            <!-- item seven -->
+            <div class="cake-card">
+                <button type="button" class="cake-favorite toggle-favorite">
+                <i class="fa-solid fa-heart"></i>
+                </button>
+                <img src="images/Cakes/cake7.jpg" alt="Black & White Forest Cake" style="width:100%;height:200px;object-fit:cover;" onerror="this.style.display='none'">
+                <h3>Black & White Forest Cake</h3>
+                <h3>1/2kg</h3>
+                <div class="price">₹300/-</div>
+                <button class="btn add-to-cart">add to cart</button>
+            </div>
+            <!-- item eight -->
+            <div class="cake-card">
+                <button type="button" class="cake-favorite toggle-favorite">
+                <i class="fa-solid fa-heart"></i>
+                </button>
+                <img src="images/Cakes/cake8.jpg" alt="Belgium Chocolate Cake" style="width:100%;height:200px;object-fit:cover;" onerror="this.style.display='none'">
+                <h3>Belgium Chocolate Cake</h3>
+                <h3>1/2kg</h3>
+                <div class="price">350₹/-</div>
+                <button class="btn add-to-cart">add to cart</button>
+            </div>
+            <!-- item nine -->
+            <div class="cake-card">
+                <button type="button" class="cake-favorite toggle-favorite">
+                <i class="fa-solid fa-heart"></i>
+                </button>
+                <img src="./images/Cakes/cake9.jpg" alt="Pineapple Cake" onload="this.style.opacity=1" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkNha2UgSW1hZ2U8L3RleHQ+PC9zdmc+'">
+                <h3>Pineapple Cake</h3>
+                <h3>1/2kg</h3>
+                <div class="price">₹300/-</div>
+                <button class="btn add-to-cart">add to cart</button>
+            </div>
+            <!-- item ten -->
+            <div class="cake-card">
+                <button type="button" class="cake-favorite toggle-favorite">
+                <i class="fa-solid fa-heart"></i>
+                </button>
+                <img src="./images/Cakes/cake10.jpg" alt="Chocolate Zebra Cake" onload="this.style.opacity=1" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkNha2UgSW1hZ2U8L3RleHQ+PC9zdmc+'">
+                <h3>Chocolate Zebra Cake</h3>
+                <h3>1/2kg</h3>
+                <div class="price">₹300/-</div>
+                <button class="btn add-to-cart">add to cart</button>
+            </div>
+            <!-- item eleven -->
+            <div class="cake-card">
+                <button type="button" class="cake-favorite toggle-favorite">
+                <i class="fa-solid fa-heart"></i>
+                </button>
+                <img src="./images/Cakes/cake11.jpg" alt="Engagement Cake" onload="this.style.opacity=1" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkNha2UgSW1hZ2U8L3RleHQ+PC9zdmc+'">
+                <h3>Engagement Cake</h3>
+                <h3>1.5 kg</h3>
+                <div class="price">1400/-</div>
+                <button class="btn add-to-cart">add to cart</button>
+            </div>
+            <!-- item twelve -->
+            <div class="cake-card">
+                <button type="button" class="cake-favorite toggle-favorite">
+                <i class="fa-solid fa-heart"></i>
+                </button>
+                <img src="./images/Cakes/cake12.jpg" alt="Wedding Cake" onload="this.style.opacity=1" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkNha2UgSW1hZ2U8L3RleHQ+PC9zdmc+'">
+                <h3>Wedding Cake</h3>
+                <h3>3kg</h3>
+                <div class="price">₹2300/-</div>
+                <button class="btn add-to-cart">add to cart</button>
+            </div>
+             <!-- item thirteen -->
+            <div class="cake-card">
+                <button type="button" class="cake-favorite toggle-favorite">
+                <i class="fa-solid fa-heart"></i>
+                </button>
+                <img src="images/Cakes/cake13.jpg" alt="Rasmalai Cake" style="width:100%;height:200px;object-fit:contain;" onerror="this.style.display='none'">
+                <h3>Rasmalai Cake</h3>
+                <h3>1.5kg</h3>
+                <div class="price">₹1700/-</div>
+                <button class="btn add-to-cart">add to cart</button>
+            </div>
+             <!-- item fourteen -->
+            <div class="cake-card">
+                <button type="button" class="cake-favorite toggle-favorite">
+                <i class="fa-solid fa-heart"></i>
+                </button>
+                <img src="images/Cakes/cake14.jpg" alt="2 Tier Pineapple Cake" style="width:100%;height:200px;object-fit:contain;" onerror="this.style.display='none'">
+                <h3>2 Tier Pineapple Cake</h3>
+                <h3>4kg</h3>
+                <div class="price">₹3300/-</div>
+                <button class="btn add-to-cart">add to cart</button>
+            </div>
+             <!-- item fifteen -->
+            <div class="cake-card">
+                <button type="button" class="cake-favorite toggle-favorite">
+                <i class="fa-solid fa-heart"></i>
+                </button>
+                <img src="images/Cakes/cake15.jpg" alt="2 Tier Strawberry Cake" style="width:100%;height:200px;object-fit:cover;" onerror="this.style.display='none'">
+                <h3>2 Tier Strawberry Cake</h3>
+                <h3>1.5kg</h3>
+                <div class="price">₹1200/-</div>
+                <button class="btn add-to-cart">add to cart</button>
+            </div>
+             <!-- item sixteen -->
+            <div class="cake-card">
+                <button type="button" class="cake-favorite toggle-favorite">
+                <i class="fa-solid fa-heart"></i>
+                </button>
+                <img src="images/Cakes/cake16.jpg" alt="3 Tier Chocolate Cake" style="width:100%;height:200px;object-fit:cover;" onerror="this.style.display='none'">
+                <h3>3 Tier Chocolate Cake</h3>
+                <h3>4kg</h3>
+                <div class="price">₹3300/-</div>
+                <button class="btn add-to-cart">add to cart</button>
+            </div>
+             <!-- item seventeen -->
+            <div class="cake-card">
+                <button type="button" class="cake-favorite toggle-favorite">
+                <i class="fa-solid fa-heart"></i>
+                </button>
+                <img src="images/Cakes/cake17.jpg" alt="2 Tier Chocolate Cake" style="width:100%;height:200px;object-fit:contain;" onerror="this.style.display='none'">
+                <h3>2 Tier Chocolate Cake</h3>
+                <h3>3kg</h3>
+                <div class="price">₹2500/-</div>
+                <button class="btn add-to-cart">add to cart</button>
+            </div>
+             <!-- item eighteen -->
+            <div class="cake-card">
+                <button type="button" class="cake-favorite toggle-favorite">
+                <i class="fa-solid fa-heart"></i>
+                </button>
+                <img src="images/Cakes/cake18.jpg" alt="Royal Truffle Cake" style="width:100%;height:200px;object-fit:cover;" onerror="this.style.display='none'">
+                <h3>Royal Truffle Cake</h3>
+                <h3>1/2kg</h3>
+                <div class="price">₹500/-</div>
+                <button class="btn add-to-cart">add to cart</button>
+            </div>
+             <!-- item nineteen -->
+            <div class="cake-card">
+                <button type="button" class="cake-favorite toggle-favorite">
+                <i class="fa-solid fa-heart"></i>
+                </button>
+                <img src="images/Cakes/cake19.jpg" alt="Swiss Chocolate Cake" style="width:100%;height:200px;object-fit:cover;" onerror="this.style.display='none'">
+                <h3>Swiss Chocolate Cake</h3>
+                <h3>1/2kg</h3>
+                <div class="price">₹350/-</div>
+                <button class="btn add-to-cart">add to cart</button>
+            </div>
+             <!-- item twenty -->
+            <div class="cake-card">
+                <button type="button" class="cake-favorite toggle-favorite">
+                <i class="fa-solid fa-heart"></i>
+                </button>
+                <img src="images/Cakes/cake20.jpg" alt="Double Chocochips Cake" style="width:100%;height:200px;object-fit:cover;" onerror="this.style.display='none'">
+                <h3>Double Chocochips Cake</h3>
+                <h3>1/2kg</h3>
+                <div class="price">₹400/-</div>
+                <button class="btn add-to-cart">add to cart</button>
+            </div>
+             <!-- item twenty one -->
+            <div class="cake-card">
+                <button type="button" class="cake-favorite toggle-favorite">
+                <i class="fa-solid fa-heart"></i>
+                </button>
+                <img src="images/Cakes/cake21.jpg" alt="Vanilla Orange Cake" style="width:100%;height:200px;object-fit:cover;" onerror="this.style.display='none'">
+                <h3>Vanilla Orange Cake</h3>
+                <h3>1/2kg</h3>
+                <div class="price">₹350/-</div>
+                <button class="btn add-to-cart">add to cart</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- customize your cake section -->
+    <section class="customize" id="customize">
+        <h3 class="title">customize your <span>cakes</span></h3>
+        <div class="customization-form">
+            <div class="form-group">
+                <label>Cake Flavour:</label>
+                <select id="cake-flavour" onchange="updateCustomPrice()" required>
+                    <option value="">Select Flavour</option>
+                    <option value="Pineapple" data-price-half="300" data-price-full="600">Pineapple</option>
+                    <option value="Strawberry" data-price-half="300" data-price-full="600">Strawberry</option>
+                    <option value="Butterscotch" data-price-half="300" data-price-full="600">Butterscotch</option>
+                    <option value="Black forest" data-price-half="300" data-price-full="600">Black forest</option>
+                    <option value="Black and white forest" data-price-half="300" data-price-full="600">Black and white forest</option>
+                    <option value="Delight chocolate" data-price-half="300" data-price-full="600">Delight chocolate</option>
+                    <option value="Rich Chocolate" data-price-half="300" data-price-full="600">Rich Chocolate</option>
+                    <option value="Rose Faluda" data-price-half="300" data-price-full="600">Rose Faluda</option>
+                    <option value="Fantasy chocolate" data-price-half="300" data-price-full="600">Fantasy chocolate</option>
+                    <option value="Belgium chocolate" data-price-half="350" data-price-full="700">Belgium chocolate</option>
+                    <option value="German chocolate" data-price-half="350" data-price-full="700">German chocolate</option>
+                    <option value="Swiss chocolate" data-price-half="350" data-price-full="700">Swiss chocolate</option>
+                    <option value="Chocolate chips" data-price-half="350" data-price-full="700">Chocolate chips</option>
+                    <option value="Mix fruit" data-price-half="350" data-price-full="700">Mix fruit</option>
+                    <option value="Kesar Kulfi" data-price-half="350" data-price-full="700">Kesar Kulfi</option>
+                    <option value="Coconut" data-price-half="350" data-price-full="700">Coconut</option>
+                    <option value="Pan" data-price-half="350" data-price-full="700">Pan</option>
+                    <option value="Crunchy chocolate" data-price-half="350" data-price-full="700">Crunchy chocolate</option>
+                    <option value="Dark chocolate" data-price-half="350" data-price-full="700">Dark chocolate</option>
+                    <option value="Dutch chocolate" data-price-half="350" data-price-full="700">Dutch chocolate</option>
+                    <option value="Caramel chocolate" data-price-half="350" data-price-full="700">Caramel chocolate</option>
+                    <option value="White forest" data-price-half="350" data-price-full="700">White forest</option>
+                    <option value="Orange chocolate" data-price-half="350" data-price-full="700">Orange chocolate</option>
+                    <option value="Mango" data-price-half="600" data-price-full="600">Mango</option>
+                    <option value="Paraline chocolate" data-price-half="350" data-price-full="700">Paraline chocolate</option>
+                    <option value="Blueberry" data-price-half="350" data-price-full="700">Blueberry</option>
+                    <option value="Kiwi" data-price-half="350" data-price-full="700">Kiwi</option>
+                    <option value="Ice cream Faluda" data-price-half="350" data-price-full="700">Ice cream Faluda</option>
+                    <option value="Rasmalai" data-price-half="400" data-price-full="800">Rasmalai</option>
+                    <option value="Red velvet" data-price-half="400" data-price-full="800">Red velvet</option>
+                    <option value="Royal truffle" data-price-half="400" data-price-full="800">Royal truffle</option>
+                    <option value="Rabdi" data-price-half="400" data-price-full="800">Rabdi</option>
+                    <option value="Chocolate Truffle" data-price-half="500" data-price-full="1000">Chocolate Truffle</option>
+                    <option value="Litch" data-price-half="350" data-price-full="700">Litch</option>
+                    <option value="Gulkand" data-price-half="350" data-price-full="700">Gulkand</option>
+                    <option value="Crusted Apple" data-price-half="350" data-price-full="700">Crusted Apple</option>
+                    <option value="Anjeer" data-price-half="350" data-price-full="700">Anjeer</option>
+                    <option value="Celebration Chocolate" data-price-half="350" data-price-full="700">Celebration Chocolate</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Cake Type:</label>
+                <select id="cake-type" required>
+                    <option value="">Select Cake Type</option>
+                    <option value="Birthday">Birthday</option>
+                    <option value="Anniversary">Anniversary</option>
+                    <option value="Wedding">Wedding</option>
+                    <option value="Engagement">Engagement</option>
+                    <option value="Baby Shower">Baby Shower</option>
+                    <option value="Baby Cake">Baby Cake</option>
+                    <option value="Festive Cake">Festive Cake</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Weight:</label>
+                <select id="cake-weight" onchange="updateCustomPrice()" required>
+                    <option value="0.5kg">0.5kg</option>
+                    <option value="1kg">1kg</option>
+                    <option value="2kg">2kg</option>
+                    <option value="3kg">3kg</option>
+                    <option value="4kg">4kg</option>
+                    <option value="5kg">5kg</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Special Instructions:</label>
+                <textarea id="special-instructions" placeholder="Toppings, decorations, name on cake, etc. to get the perfect custom cake, contact - 73500222513, name - Roshan Hazare"
+                Cash on Delivery, only!
+                ></textarea>
+            </div>
+            <div class="pricing-note" style="background: #fff3cd; border: 1px solid #ffeaa7; padding: 1rem; border-radius: 5px; margin: 1rem 0; color: #856404;">
+                <strong>Note:</strong>Tiered cake cant be ordered here. Tier cakes pricing may vary based on design complexity. For tier cakes, please contact 73500222513 (Roshan Hazare) for accurate pricing.
+            </div>
+            <div class="price-display">
+                <strong>Total Price: ₹<span id="custom-price">0</span></strong>
+            </div>
+            <button class="btn" onclick="addCustomCakeToCart()">Add to Cart</button>
+        </div>
+    </section>
+
+    <!-- about section -->
+    <section class="about" id="about">
+        <h1 class="title">about <span>us</span></h1>
+        <div class="container">
+            <div class="img">
+                <img src="images/aboutus.jpg" >
+            </div>
+            <div class="content">
+                <h3>what makes us different</h3>
+                <p> Located in the heart of Murbad, Thane, our cake shop stands out for its wide variety and genuine passion for baking.</p>
+                <p>With over 40 delicious flavours to choose from, each cake is crafted with care, using quality ingredients and a touch of creativity.</p>
+                <p> What makes us different is our dedication to freshness, flavour, and the joy of bringing people together through sweet moments. Whether it’s a small celebration or a big occasion, we’re here to make every bite memorable.</p>
+            </div>
+        </div>
+    </section>
+    <!-- review section -->
+    <section class="review" id="review">
+        <h1 class="title">Customer's <span>review</span></h1>
+        <div class="wrapper">
+            <!-- review one -->
+            <div class="review-card">
+                <img src="images/quote.png" alt="">
+                <p>
+                    The flavours are so rich and fresh — you can really taste the quality. Every time we order, the design and taste are just perfect. Highly recommend for birthdays and celebrations!
+
+                </p>
+                <img class="customer"  src="images/woman1.jpg" alt="">
+                <h3>Anjali Desai</h3>
+                <div class="stars">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                </div>
+            </div>
+            <!-- review two -->
+            <div class="review-card">
+                <img src="images/quote.png" alt="">
+                <p>
+                    From the first bite to the last, everything feels homemade and full of love. I’ve tried several bakeries before, but this one really stands out for its quality and warmth.
+
+                </p>
+                <img class="customer" src="images/woman2.jpg" alt="">
+                <h3>Riya Patil</h3>
+                <div class="stars">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                </div>
+            </div>
+            <!-- review three -->
+            <div class="review-card">
+                <img src="images/quote.png" alt="">
+                <p>
+                    They have so many unique flavours, and each one tastes amazing. The staff is friendly, and the cakes are always soft, fresh, and beautifully decorated.
+
+                </p>
+                <img class="customer" src="images/man1.jpg" alt="">
+                <h3>Aditya shahane</h3>
+                <div class="stars">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                </div>
+            </div>
+        </div>
+    </section>  
+    <!-- contact section -->
+    <section class="contact" id="location">
+        <h1 class="title"><span>our</span> location</h1>
+        <div class="contents">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3766.6195478982318!2d73.38980819999999!3d19.2554057!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be78b735d895cd5%3A0xb74dc2e63cf4d513!2sMr%20D%20cake!5e0!3m2!1sen!2sin!4v1760339594675!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            
+        </div>
+    </section>
+    <!-- footor section -->
+     <footer class="footer">
+        <div class="social-media">
+            <a href="https://www.instagram.com/mr.dcakes?igsh=aTBkcHAxM2s1YXBl" class="fab fa-instagram"></a>
+        </div>
+
+        <div class="links">
+            <a href="#home">Home</a>
+            <a href="#cakes">Cakes</a>
+            <a href="#about">about</a>
+            <a href="#review">review</a>
+            <a href="#location">location</a>
+        </div>
+
+        <div class="credits">
+            created by <span>Divya and chalce</span> | all rights reserved.
+        </div>
+     </footer>
+
+    <script src="config.js"></script>
+    <script src="security.js"></script>
+    <script src="final-tracking.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

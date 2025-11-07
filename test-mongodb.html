@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MongoDB Connection Test</title>
+    <script src="config.js"></script>
+</head>
+<body>
+    <h1>MongoDB Connection Test</h1>
+    <button onclick="testConnection()">Test MongoDB Connection</button>
+    <div id="result"></div>
+
+    <script>
+        async function testConnection() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = 'Testing connection...';
+            
+            try {
+                const response = await fetch(`${CONFIG.API_BASE_URL}/api/orders`);
+                if (response.ok) {
+                    const orders = await response.json();
+                    resultDiv.innerHTML = `
+                        <h3 style="color: green;">✅ MongoDB Connected Successfully!</h3>
+                        <p>Found ${orders.length} orders in database</p>
+                        <pre>${JSON.stringify(orders, null, 2)}</pre>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `<h3 style="color: red;">❌ Server responded with error: ${response.status}</h3>`;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <h3 style="color: red;">❌ MongoDB Server Not Running</h3>
+                    <p>Error: ${error.message}</p>
+                    <p><strong>To fix this:</strong></p>
+                    <ol>
+                        <li>Make sure MongoDB is installed and running</li>
+                        <li>Run: <code>START-MONGODB.bat</code></li>
+                        <li>Or manually run: <code>node mongodb-server.js</code></li>
+                    </ol>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>
